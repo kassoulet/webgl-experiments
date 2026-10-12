@@ -19,13 +19,16 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
+      - name: Install and build shared package
+        run: |
+          cd packages/shared && npm ci && npm run build
+
       - name: Install all apps
         run: |
           cd apps/aurora && npm ci
           cd ../foRAVEr && npm ci
           cd ../jeffer && npm ci
           cd ../singularity && npm ci
-          cd ../../packages/shared && npm ci
 
       - name: Typecheck all
         run: |
@@ -80,6 +83,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y chromium-browser
+
+      - name: Install and build shared package
+        run: |
+          cd packages/shared && npm ci && npm run build
 
       - name: Install all apps
         run: |

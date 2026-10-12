@@ -27,13 +27,16 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
+      - name: Install and build shared package
+        run: |
+          cd packages/shared && npm ci && npm run build
+
       - name: Install all apps
         run: |
           cd apps/aurora && npm ci
           cd ../foRAVEr && npm ci
           cd ../jeffer && npm ci
           cd ../singularity && npm ci
-          cd ../../packages/shared && npm ci
 
       - name: Build all apps
         run: |
@@ -57,7 +60,7 @@ jobs:
           <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>FractalRave Web Apps</title>
+            <title>WebGL Experimental Apps</title>
             <style>
               body { font-family: system-ui, sans-serif; max-width: 800px; margin: 4rem auto; padding: 0 1rem; text-align: center; background: #0a0a0f; color: #e8e8ed; }
               h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #00d4ff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -71,7 +74,7 @@ jobs:
             </style>
           </head>
           <body>
-            <h1>FractalRave</h1>
+            <h1>WebGL Experimental Apps</h1>
             <p class="tagline">Endless algorithmic audio-visual experiences</p>
             <div class="apps">
               <a href="/aurora/" class="app">
