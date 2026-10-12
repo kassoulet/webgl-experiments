@@ -1,0 +1,30 @@
+{
+  "name": "aurora",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Aurora — endless synth-pop & aurora visuals, generated live in the browser",
+  "license": "MIT OR Apache-2.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vite build --config vite.sw.config.ts",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.tools.json",
+    "compile:tools": "tsc -p tsconfig.tools.json",
+    "test": "npm run compile:tools && node --test tools-dist/tests/*.test.js",
+    "serve": "npm run compile:tools && node tools-dist/tools/serve.js",
+    "smoke": "npm run build && npm run compile:tools && node tools-dist/tools/smoke.js",
+    "preview": "npm run compile:tools && node tools-dist/tools/preview.js",
+    "icons": "npm run compile:tools && node tools-dist/tools/make-icons.js",
+    "soak": "npm run build && npm run compile:tools && node tools-dist/tools/soak.js",
+    "soak:report": "npm run compile:tools && node tools-dist/tools/soak.js --report-only",
+    "visible": "node tools/visible.mjs"
+  },
+  "dependencies": {
+    "@fractal-rave/shared": "file:../../packages/shared"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}

@@ -1,0 +1,13 @@
+# Build output and dependencies. The app itself is source: `dist/` is produced
+# by `npm run build` and served by the static host.
+node_modules/
+dist/
+
+# The smoke test's scratch: a throwaway Chrome profile and the screenshots it
+# decodes. Regenerate with `npm run smoke`.
+.smoke/
+
+# The compiled tools. `npm run compile:tools` runs tsc into here and the
+# scripts execute the JavaScript; regenerate with the same command rather than
+# editing it.
+tools-dist/

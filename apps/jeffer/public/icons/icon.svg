@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="JEFFER">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#4924b6" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#000008" stop-opacity="0" />
+    </radialGradient>
+    <!-- The phosphor core, hot in the middle and cooling to the edges: a flat
+         stroke is a wire, and a wire is not an oscilloscope. -->
+    <linearGradient id="trace" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6d2424" />
+      <stop offset="18%" stop-color="#4924b6" />
+      <stop offset="55%" stop-color="#7d5cff" />
+      <stop offset="82%" stop-color="#ff4a3d" />
+      <stop offset="100%" stop-color="#6d2424" />
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="#000008" />
+  <circle cx="256" cy="256" r="250" fill="url(#glow)" />
+
+  <!-- The graticule: 10 by 8 divisions, the same box the shader draws. -->
+  <g stroke="#24246d" stroke-width="2" opacity="0.5" fill="none">
+    <rect x="56" y="176" width="400" height="160" />
+    <g opacity="0.55">
+      <path d="M96 176 V336 M136 176 V336 M176 176 V336 M216 176 V336 M296 176 V336 M336 176 V336 M376 176 V336 M416 176 V336" />
+      <path d="M56 196 H456 M56 216 H456 M56 256 H456 M56 296 H456 M56 316 H456" />
+    </g>
+  </g>
+
+  <!-- The trace: a kick, a bass line's decay, and the sixteenths on top of it.
+       Drawn twice, wide and dim then narrow and hot, which is what the bloom
+       pass does to the real picture. -->
+  <path
+    d="M56 256
+       L72 168 L88 300 L100 214 L112 288 L126 236
+       L150 244 L168 250 L186 246 L204 252 L222 248
+       L240 256 L246 176 L252 300 L258 214 L264 288 L270 236
+       L290 240 L304 246 L320 242 L336 250 L352 244 L368 250 L384 246 L400 252 L416 248 L432 254 L456 256"
+    fill="none" stroke="url(#trace)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" opacity="0.35" />
+  <path
+    d="M56 256
+       L72 168 L88 300 L100 214 L112 288 L126 236
+       L150 244 L168 250 L186 246 L204 252 L222 248
+       L240 256 L246 176 L252 300 L258 214 L264 288 L270 236
+       L290 240 L304 246 L320 242 L336 250 L352 244 L368 250 L384 246 L400 252 L416 248 L432 254 L456 256"
+    fill="none" stroke="url(#trace)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- The spectrum along the bottom: 24 bars, the same count as the shader. -->
+  <g fill="#4924b6" opacity="0.85">
+    <rect x="64" y="404" width="10" height="34" rx="3" />
+    <rect x="82" y="392" width="10" height="46" rx="3" />
+    <rect x="100" y="406" width="10" height="32" rx="3" />
+    <rect x="118" y="380" width="10" height="58" rx="3" />
+    <rect x="136" y="396" width="10" height="42" rx="3" />
+    <rect x="154" y="370" width="10" height="68" rx="3" />
+    <rect x="172" y="388" width="10" height="50" rx="3" />
+    <rect x="190" y="360" width="10" height="78" rx="3" />
+    <rect x="208" y="382" width="10" height="56" rx="3" />
+    <rect x="226" y="372" width="10" height="66" rx="3" />
+    <rect x="244" y="392" width="10" height="46" rx="3" />
+    <rect x="262" y="378" width="10" height="60" rx="3" />
+    <rect x="280" y="398" width="10" height="40" rx="3" />
+    <rect x="298" y="386" width="10" height="52" rx="3" />
+    <rect x="316" y="402" width="10" height="36" rx="3" />
+    <rect x="334" y="394" width="10" height="44" rx="3" />
+    <rect x="352" y="406" width="10" height="32" rx="3" />
+    <rect x="370" y="398" width="10" height="40" rx="3" />
+    <rect x="388" y="408" width="10" height="30" rx="3" />
+    <rect x="406" y="400" width="10" height="38" rx="3" />
+    <rect x="424" y="410" width="10" height="28" rx="3" />
+  </g>
+  <path d="M56 438 H456" stroke="#24246d" stroke-width="3" opacity="0.6" />
+</svg>

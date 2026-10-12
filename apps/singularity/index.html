@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>GENERATIVE SINGULARITY — Endless Cosmic Drone &amp; Deep Space Visuals</title>
+    <meta
+      name="description"
+      content="An endless ambient piece and deep-space visuals, generated live in your browser. No stream, no server, no samples: it never repeats and never stops."
+    />
+    <meta name="theme-color" content="#05060a" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link rel="stylesheet" href="/styles.css" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  </head>
+  <body>
+    <canvas id="sky" aria-hidden="true"></canvas>
+
+    <!-- Everything before the first click: the browser will not start audio
+         without a gesture, so this is the gesture (spec §4 "Start"). -->
+    <section id="enter" class="overlay" aria-label="Enter">
+      <div class="panel">
+        <h1>GENERATIVE <span>SINGULARITY</span></h1>
+        <p class="tagline">Endless cosmic drone &amp; deep space visuals</p>
+        <p class="blurb">
+          No stream, no server, nothing recorded. Pads, tape-warped drones, slow chords and
+          nebulae are generated here, in this tab, forever — and never twice.
+        </p>
+        <button id="enter-button" class="primary" type="button">enter</button>
+        <p class="seed-line">
+          journey <span id="enter-seed" class="mono">—</span>
+          <button id="new-seed" class="link" type="button">another</button>
+        </p>
+        <p class="fine">
+          Audio begins on your click. After the page loads there is no network traffic at all.
+        </p>
+      </div>
+    </section>
+
+    <!-- The controls, hidden until the pointer moves (spec §4). -->
+    <div id="hud" class="hud" aria-hidden="true">
+      <div class="readout">
+        <span id="readout-key" class="mono">—</span>
+        <span class="sep">·</span>
+        <span id="readout-chord" class="mono">—</span>
+        <span class="sep">·</span>
+        <span id="readout-mood" class="dim">—</span>
+        <span class="sep">·</span>
+        <span id="readout-held" class="dim">—</span>
+      </div>
+      <div class="controls">
+        <label class="control">
+          <span>volume</span>
+          <input id="volume" type="range" min="0" max="1" step="0.01" value="0.7" />
+        </label>
+        <label class="control">
+          <span>visuals</span>
+          <select id="quality">
+            <option value="auto">auto</option>
+            <option value="low">low</option>
+            <option value="high">high</option>
+          </select>
+        </label>
+        <label class="control">
+          <span>audio only</span>
+          <input id="audio-only" type="checkbox" />
+        </label>
+        <label class="control">
+          <span>sleep</span>
+          <select id="sleep">
+            <option value="0">off</option>
+            <option value="15">15 min</option>
+            <option value="30">30 min</option>
+            <option value="60">60 min</option>
+            <option value="120">2 h</option>
+          </select>
+        </label>
+        <label class="control seed-control">
+          <span>seed</span>
+          <input id="seed" type="text" class="mono" spellcheck="false" autocomplete="off" />
+        </label>
+        <button id="copy-link" class="ghost" type="button">copy link</button>
+      </div>
+      <div class="stats mono" id="stats"></div>
+    </div>
+
+    <div id="notice" class="notice" hidden>
+      <p id="notice-text"></p>
+      <button id="notice-action" class="ghost" type="button" hidden></button>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- The only script tag: everything else is a module import from here. Vite
+         bundles it to js/index.js at a stable path, which is what sw.ts caches. -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

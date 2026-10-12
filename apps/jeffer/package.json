@@ -1,0 +1,26 @@
+{
+  "name": "jeffer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Jeffer — endless generative electro & oscilloscope visuals, generated live in the browser",
+  "license": "MIT OR Apache-2.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vite build --config vite.sw.config.ts",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.tools.json",
+    "tools": "vite build --config vite.tools.config.ts",
+    "test": "npm run tools && node --test .tools/*.test.mjs",
+    "serve": "npm run tools && node .tools/dev-server.mjs",
+    "smoke": "npm run build && npm run tools && node .tools/smoke.mjs",
+    "shaders": "npm run tools && node .tools/shaders.mjs",
+    "stars": "npm run build && npm run tools && node .tools/stars.mjs",
+    "preview": "npm run tools && node .tools/preview.mjs",
+    "icons": "npm run tools && node .tools/make-icons.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}

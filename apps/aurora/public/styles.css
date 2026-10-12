@@ -1,0 +1,76 @@
+/* Aurora styles */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { width: 100%; height: 100%; overflow: hidden; background: #040410; color: #e0e0ff; font: 14px/1.5 system-ui, sans-serif; }
+
+canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+
+.hidden { display: none !important; }
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(180deg, #040410 0%, #0a0420 100%);
+  z-index: 100;
+}
+
+.overlay h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  background: linear-gradient(90deg, #00ffe0, #ff3de0, #3dffb3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.02em;
+}
+
+#seed-line { font-family: monospace; color: #888; font-size: 0.9rem; }
+
+button {
+  appearance: none;
+  border: 1px solid #334;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font: inherit;
+  color: #e0e0ff;
+  background: rgba(20,20,40,0.8);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+button:hover { border-color: #00ffe0; background: rgba(0,255,224,0.1); }
+button:active { transform: scale(0.98); }
+button.primary { border-color: #00ffe0; background: linear-gradient(90deg, #006b55, #6b006b); }
+button.primary:hover { box-shadow: 0 0 20px #00ffe080; }
+
+details { color: #888; font-size: 0.85rem; }
+details summary { cursor: pointer; margin-bottom: 0.5rem; }
+details label { display: block; margin: 0.4rem 0; color: #aaa; }
+details select, details input[type=range] { width: 100%; margin-top: 0.2rem; }
+
+#hud {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  font: 13px monospace;
+  color: #88f;
+  text-shadow: 0 0 4px #004;
+  pointer-events: none;
+  z-index: 50;
+  line-height: 1.6;
+}
+
+#hud .asleep { color: #ff3de0; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

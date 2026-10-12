@@ -1,0 +1,124 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install root
+        run: npm ci
+
+      - name: Install all apps
+        run: |
+          cd apps/aurora && npm ci
+          cd ../foRAVEr && npm ci
+          cd ../jeffer && npm ci
+          cd ../singularity && npm ci
+          cd ../../packages/shared && npm ci
+
+      - name: Typecheck all
+        run: |
+          npm run typecheck --prefix apps/aurora
+          npm run typecheck --prefix apps/foRAVEr
+          npm run typecheck --prefix apps/jeffer
+          npm run typecheck --prefix apps/singularity
+          npm run typecheck --prefix packages/shared
+
+      - name: Test all
+        run: |
+          npm test --prefix apps/aurora
+          npm test --prefix apps/foRAVEr
+          npm test --prefix apps/jeffer
+          npm test --prefix apps/singularity
+
+      - name: Build all
+        run: |
+          npm run build --prefix apps/aurora
+          npm run build --prefix apps/foRAVEr
+          npm run build --prefix apps/jeffer
+          npm run build --prefix apps/singularity
+          npm run build --prefix packages/shared
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-all
+          path: |
+            apps/aurora/dist
+            apps/foRAVEr/dist
+            apps/jeffer/dist
+            apps/singularity/dist
+            packages/shared/dist
+          retention-days: 7
+
+  smoke:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+
+      - name: Install all apps
+        run: |
+          cd apps/aurora && npm ci
+          cd ../foRAVEr && npm ci
+          cd ../jeffer && npm ci
+          cd ../singularity && npm ci
+
+      - name: Smoke test Aurora
+        run: npm run smoke --prefix apps/aurora
+        env:
+          CHROME_PATH: /usr/bin/chromium-browser
+
+      - name: Smoke test FOraveR
+        run: npm run smoke --prefix apps/foRAVEr
+        env:
+          CHROME_PATH: /usr/bin/chromium-browser
+
+      - name: Smoke test Jeffer
+        run: npm run smoke --prefix apps/jeffer
+        env:
+          CHROME_PATH: /usr/bin/chromium-browser
+
+      - name: Smoke test Singularity
+        run: npm run smoke --prefix apps/singularity
+        env:
+          CHROME_PATH: /usr/bin/chromium-browser
+
+      - name: Upload smoke captures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-captures
+          path: |
+            apps/aurora/.smoke
+            apps/foRAVEr/.smoke
+            apps/jeffer/.smoke
+            apps/singularity/.smoke
+          retention-days: 7

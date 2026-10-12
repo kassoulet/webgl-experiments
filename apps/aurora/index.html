@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a1a">
+  <meta name="description" content="Aurora — endless synth-pop & aurora visuals, generated live in the browser">
+  <title>Aurora</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <canvas id="visual"></canvas>
+  <div id="hud" class="hidden"></div>
+  <div id="enter" class="overlay">
+    <h1>Aurora</h1>
+    <p id="seed-line">set seed: (none)</p>
+    <button id="start" class="primary">Begin</button>
+    <button id="audio-only">Audio only</button>
+    <details id="options">
+      <summary>Options</summary>
+      <label><input type="checkbox" id="reduced-motion"> Reduced motion</label>
+      <label><input type="checkbox" id="flash-full" disabled> Full flash (opt-in)</label>
+      <label>Quality: <select id="quality"><option value="auto">Auto</option><option value="low">Low</option><option value="high">High</option></select></label>
+      <label>Volume: <input type="range" id="volume" min="0" max="1" step="0.05" value="0.7"></label>
+    </details>
+  </div>
+  <!-- The only script tag: everything else is a module import from here. Vite
+       bundles it to js/index.js at a stable path, which is what sw.ts caches. -->
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

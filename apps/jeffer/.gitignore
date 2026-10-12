@@ -1,0 +1,15 @@
+# Build output and dependencies. The app itself is source: `dist/` is produced
+# by `npm run build` and served by the static host.
+# Without the trailing slash on the second one: `node_modules` here is a symlink
+# to ../fo-raver/node_modules, and a pattern that only matches directories does
+# not match a symlink to one.
+node_modules/
+node_modules
+dist/
+
+# The smoke test's scratch: a throwaway Chrome profile and the screenshot it
+# decodes. Regenerate with `npm run smoke`.
+.smoke/
+
+# Bundled tools (this node has no TypeScript support; see vite.tools.config.ts)
+.tools/

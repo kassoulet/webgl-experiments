@@ -1,0 +1,18 @@
+{
+  "name": "fractal-rave-webapps",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FractalRave web apps: Aurora, FOraveR, Jeffer, Generative Singularity",
+  "scripts": {
+    "install:all": "npm install && cd apps/aurora && npm install && cd ../foRAVEr && npm install && cd ../jeffer && npm install && cd ../singularity && npm install && cd ../../packages/shared && npm install",
+    "build:all": "npm run build --prefix apps/aurora && npm run build --prefix apps/foRAVEr && npm run build --prefix apps/jeffer && npm run build --prefix apps/singularity && npm run build --prefix packages/shared",
+    "typecheck:all": "npm run typecheck --prefix apps/aurora && npm run typecheck --prefix apps/foRAVEr && npm run typecheck --prefix apps/jeffer && npm run typecheck --prefix apps/singularity && npm run typecheck --prefix packages/shared",
+    "test:all": "npm test --prefix apps/aurora && npm test --prefix apps/foRAVEr && npm test --prefix apps/jeffer && npm test --prefix apps/singularity",
+    "smoke:all": "npm run smoke --prefix apps/aurora && npm run smoke --prefix apps/foRAVEr && npm run smoke --prefix apps/jeffer && npm run smoke --prefix apps/singularity",
+    "verify:all": "npm run typecheck:all && npm run test:all && npm run build:all"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=22"
+  }
+}

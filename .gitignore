@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+apps/*/dist/
+packages/*/dist/
+
+# Smoke test artifacts
+.smoke/
+apps/*/.smoke/
+
+# Compiled tools
+tools-dist/
+apps/*/tools-dist/
+apps/*/.tools/
+
+# IDE / OS
+.DS_Store
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*

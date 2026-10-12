@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>JEFFER — Endless Electro &amp; Oscilloscope Visuals</title>
+    <meta
+      name="description"
+      content="An endless generative electro set and oscilloscope visuals, generated live in your browser. No stream, no server, no samples: it never repeats and never stops."
+    />
+    <meta name="theme-color" content="#000008" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link rel="stylesheet" href="/styles.css" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  </head>
+  <body>
+    <canvas id="visual" aria-hidden="true"></canvas>
+
+    <!-- Everything before the first click: the browser will not start audio
+         without a gesture, and this is the gesture. -->
+    <section id="enter" class="overlay" aria-label="Enter">
+      <div class="panel">
+        <h1>JE<span>FFER</span></h1>
+        <p class="tagline">Endless electro &amp; oscilloscope visuals</p>
+        <p class="blurb">
+          A rolling bass, a 808, a talkbox stab and a kick, over a big
+          oscilloscope wearing a video tape, are generated here, in this tab,
+          forever — and never twice.
+        </p>
+        <p class="fine fine-scope">
+          The scope is not a drawing. It is reading the master bus, so the trace
+          on screen is the signal you are hearing, and it is flat when the music
+          is.
+        </p>
+        <p class="fine fine-flash">
+          The picture is capped by default: the kick pulses, it does not strobe the
+          screen. Turn that up in the controls if you want the real thing.
+        </p>
+        <button id="enter-button" class="primary" type="button">enter</button>
+        <p class="seed-line">
+          set seed <span id="enter-seed" class="mono">—</span>
+          <button id="new-seed" class="link" type="button">another</button>
+        </p>
+        <p class="fine">
+          Audio begins on your click. After the page loads there is no network traffic at all.
+        </p>
+      </div>
+    </section>
+
+    <!-- The controls, hidden until the pointer moves. -->
+    <div id="hud" class="hud" aria-hidden="true">
+      <div class="readout">
+        <span id="readout-section" class="accent">—</span>
+        <span class="sep">·</span>
+        <span id="readout-bpm" class="mono">—</span>
+        <span class="sep">·</span>
+        <span id="readout-chord" class="mono">—</span>
+        <span class="sep">·</span>
+        <span id="readout-bars" class="dim">—</span>
+      </div>
+      <div class="controls">
+        <label class="control">
+          <span>volume</span>
+          <input id="volume" type="range" min="0" max="1" step="0.01" value="0.7" />
+        </label>
+        <label class="control">
+          <span>visuals</span>
+          <select id="quality">
+            <option value="auto">auto</option>
+            <option value="low">low</option>
+            <option value="high">high</option>
+          </select>
+        </label>
+        <label class="control">
+          <span>flashes</span>
+          <select id="flash">
+            <option value="soft">capped</option>
+            <option value="full">full</option>
+          </select>
+        </label>
+        <label class="control">
+          <span>audio only</span>
+          <input id="audio-only" type="checkbox" />
+        </label>
+        <label class="control">
+          <span>sleep</span>
+          <select id="sleep">
+            <option value="0">off</option>
+            <option value="15">15 min</option>
+            <option value="30">30 min</option>
+            <option value="60">60 min</option>
+            <option value="120">2 h</option>
+          </select>
+        </label>
+        <label class="control seed-control">
+          <span>seed</span>
+          <input id="seed" type="text" class="mono" spellcheck="false" autocomplete="off" />
+        </label>
+        <button id="copy-link" class="ghost" type="button">copy link</button>
+      </div>
+      <div class="stats mono" id="stats"></div>
+    </div>
+
+    <div id="notice" class="notice" hidden>
+      <p id="notice-text"></p>
+      <button id="notice-action" class="ghost" type="button" hidden></button>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- The only script tag: everything else is a module import from here. Vite
+         bundles it to js/index.js at a stable path, which is what sw.ts caches. -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
