@@ -8,6 +8,7 @@ import { defineConfig } from 'vite';
 // loaded from a Blob URL (src/audio/meter-worklet.ts), the same discipline the
 // GLSL follows, so there is no worklet chunk to name or precache.
 export default defineConfig({
+  base: '/webgl-experiments/singularity/',
   build: {
     target: 'es2022',
     outDir: 'dist',

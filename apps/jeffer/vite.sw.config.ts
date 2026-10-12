@@ -7,6 +7,7 @@ import { defineConfig } from 'vite';
 //
 // `npm run build` runs the app build first, then this one.
 export default defineConfig({
+  base: '/webgl-experiments/jeffer/',
   publicDir: false,
   build: {
     target: 'es2022',

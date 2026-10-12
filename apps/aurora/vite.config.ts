@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   root: '.',
-  base: '/',
+  base: '/webgl-experiments/aurora/',
   publicDir: 'public',
   build: {
     target: 'es2022',
