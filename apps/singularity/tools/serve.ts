@@ -14,6 +14,9 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(fileURLToPath(new URL('../dist', import.meta.url)));
 
+// Base path for GitHub Pages deployment; strip from requests in smoke test
+const BASE_PATH = '/webgl-experiments/singularity/';
+
 const TYPES: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -34,6 +37,11 @@ export function createStaticServer(root = ROOT) {
     try {
       const url = new URL(request.url ?? '/', 'http://localhost');
       let pathname = decodeURIComponent(url.pathname);
+      // Strip base path prefix for smoke test / CI compatibility
+      if (pathname.startsWith(BASE_PATH)) {
+        pathname = pathname.slice(BASE_PATH.length);
+        if (!pathname.startsWith('/')) pathname = '/' + pathname;
+      }
       if (pathname.endsWith('/')) pathname += 'index.html';
       const target = resolve(join(root, normalize(pathname)));
       if (!target.startsWith(root)) {
