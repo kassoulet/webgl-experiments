@@ -19,9 +19,6 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-      - name: Install root
-        run: npm ci
-
       - name: Install all apps
         run: |
           cd apps/aurora && npm ci
@@ -32,26 +29,26 @@ jobs:
 
       - name: Typecheck all
         run: |
-          npm run typecheck --prefix apps/aurora
-          npm run typecheck --prefix apps/foRAVEr
-          npm run typecheck --prefix apps/jeffer
-          npm run typecheck --prefix apps/singularity
-          npm run typecheck --prefix packages/shared
+          cd apps/aurora && npm run typecheck
+          cd ../foRAVEr && npm run typecheck
+          cd ../jeffer && npm run typecheck
+          cd ../singularity && npm run typecheck
+          cd ../../packages/shared && npm run typecheck
 
       - name: Test all
         run: |
-          npm test --prefix apps/aurora
-          npm test --prefix apps/foRAVEr
-          npm test --prefix apps/jeffer
-          npm test --prefix apps/singularity
+          cd apps/aurora && npm test
+          cd ../foRAVEr && npm test
+          cd ../jeffer && npm test
+          cd ../singularity && npm test
 
       - name: Build all
         run: |
-          npm run build --prefix apps/aurora
-          npm run build --prefix apps/foRAVEr
-          npm run build --prefix apps/jeffer
-          npm run build --prefix apps/singularity
-          npm run build --prefix packages/shared
+          cd apps/aurora && npm run build
+          cd ../foRAVEr && npm run build
+          cd ../jeffer && npm run build
+          cd ../singularity && npm run build
+          cd ../../packages/shared && npm run build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -92,22 +89,22 @@ jobs:
           cd ../singularity && npm ci
 
       - name: Smoke test Aurora
-        run: npm run smoke --prefix apps/aurora
+        run: cd apps/aurora && npm run smoke
         env:
           CHROME_PATH: /usr/bin/chromium-browser
 
       - name: Smoke test FOraveR
-        run: npm run smoke --prefix apps/foRAVEr
+        run: cd apps/foRAVEr && npm run smoke
         env:
           CHROME_PATH: /usr/bin/chromium-browser
 
       - name: Smoke test Jeffer
-        run: npm run smoke --prefix apps/jeffer
+        run: cd apps/jeffer && npm run smoke
         env:
           CHROME_PATH: /usr/bin/chromium-browser
 
       - name: Smoke test Singularity
-        run: npm run smoke --prefix apps/singularity
+        run: cd apps/singularity && npm run smoke
         env:
           CHROME_PATH: /usr/bin/chromium-browser
 

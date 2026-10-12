@@ -37,10 +37,10 @@ jobs:
 
       - name: Build all apps
         run: |
-          npm run build --prefix apps/aurora
-          npm run build --prefix apps/foRAVEr
-          npm run build --prefix apps/jeffer
-          npm run build --prefix apps/singularity
+          cd apps/aurora && npm run build
+          cd ../foRAVEr && npm run build
+          cd ../jeffer && npm run build
+          cd ../singularity && npm run build
 
       - name: Prepare GitHub Pages structure
         run: |
