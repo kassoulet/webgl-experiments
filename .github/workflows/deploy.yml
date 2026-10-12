@@ -77,22 +77,22 @@ jobs:
             <h1>WebGL Experimental Apps</h1>
             <p class="tagline">Endless algorithmic audio-visual experiences</p>
             <div class="apps">
-              <a href="/aurora/" class="app">
+              <a href="/webgl-experiments/aurora/" class="app">
                 <div class="app-name">Aurora</div>
                 <div class="app-desc">Synth-pop & aurora borealis</div>
                 <span class="app-genre">Ambient / Synth-pop</span>
               </a>
-              <a href="/foRAVEr/" class="app">
+              <a href="/webgl-experiments/foRAVEr/" class="app">
                 <div class="app-name">FOraveR</div>
                 <div class="app-desc">Techno & fractal kaleidoscope</div>
                 <span class="app-genre">Techno (122–140 BPM)</span>
               </a>
-              <a href="/jeffer/" class="app">
+              <a href="/webgl-experiments/jeffer/" class="app">
                 <div class="app-name">Jeffer</div>
                 <div class="app-desc">Electro & oscilloscope visuals</div>
                 <span class="app-genre">Electro (122–132 BPM)</span>
               </a>
-              <a href="/singularity/" class="app">
+              <a href="/webgl-experiments/singularity/" class="app">
                 <div class="app-name">Generative Singularity</div>
                 <div class="app-desc">Cosmic drone & deep space</div>
                 <span class="app-genre">Drone / Ambient</span>
