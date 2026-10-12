@@ -1,4 +1,4 @@
-# FractalRave Web Apps
+# WebGL Experimental Apps
 
 Four standalone web applications generating endless algorithmic audio-visual experiences in the browser. Built with TypeScript, Vite, WebGL2, and Web Audio — zero runtime dependencies.
 
