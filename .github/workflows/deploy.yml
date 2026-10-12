@@ -1,0 +1,116 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install all apps
+        run: |
+          cd apps/aurora && npm ci
+          cd ../foRAVEr && npm ci
+          cd ../jeffer && npm ci
+          cd ../singularity && npm ci
+          cd ../../packages/shared && npm ci
+
+      - name: Build all apps
+        run: |
+          npm run build --prefix apps/aurora
+          npm run build --prefix apps/foRAVEr
+          npm run build --prefix apps/jeffer
+          npm run build --prefix apps/singularity
+
+      - name: Prepare GitHub Pages structure
+        run: |
+          mkdir -p deploy
+          cp -r apps/aurora/dist deploy/aurora
+          cp -r apps/foRAVEr/dist deploy/foRAVEr
+          cp -r apps/jeffer/dist deploy/jeffer
+          cp -r apps/singularity/dist deploy/singularity
+
+          # Create root index.html that redirects or lists apps
+          cat > deploy/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>FractalRave Web Apps</title>
+            <style>
+              body { font-family: system-ui, sans-serif; max-width: 800px; margin: 4rem auto; padding: 0 1rem; text-align: center; background: #0a0a0f; color: #e8e8ed; }
+              h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #00d4ff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+              .tagline { color: #888; margin-bottom: 3rem; }
+              .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+              .app { background: #14141f; border: 1px solid #2a2a3a; border-radius: 12px; padding: 2rem; text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.2s; }
+              .app:hover { transform: translateY(-4px); border-color: #a855f7; }
+              .app-name { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+              .app-desc { color: #aaa; font-size: 0.95rem; }
+              .app-genre { display: inline-block; margin-top: 1rem; padding: 0.25rem 0.75rem; background: #2a2a3a; border-radius: 999px; font-size: 0.8rem; color: #00d4ff; }
+            </style>
+          </head>
+          <body>
+            <h1>FractalRave</h1>
+            <p class="tagline">Endless algorithmic audio-visual experiences</p>
+            <div class="apps">
+              <a href="/aurora/" class="app">
+                <div class="app-name">Aurora</div>
+                <div class="app-desc">Synth-pop & aurora borealis</div>
+                <span class="app-genre">Ambient / Synth-pop</span>
+              </a>
+              <a href="/foRAVEr/" class="app">
+                <div class="app-name">FOraveR</div>
+                <div class="app-desc">Techno & fractal kaleidoscope</div>
+                <span class="app-genre">Techno (122–140 BPM)</span>
+              </a>
+              <a href="/jeffer/" class="app">
+                <div class="app-name">Jeffer</div>
+                <div class="app-desc">Electro & oscilloscope visuals</div>
+                <span class="app-genre">Electro (122–132 BPM)</span>
+              </a>
+              <a href="/singularity/" class="app">
+                <div class="app-name">Generative Singularity</div>
+                <div class="app-desc">Cosmic drone & deep space</div>
+                <span class="app-genre">Drone / Ambient</span>
+              </a>
+            </div>
+          </body>
+          </html>
+          EOF
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: deploy
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
